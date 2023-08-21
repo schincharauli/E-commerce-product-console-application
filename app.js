@@ -23,7 +23,16 @@ readLine.question("Enter Product Name: ", (name) => {
       try {
         const existingData = fs.readFileSync("products.json", "utf-8");
         const existingProducts = JSON.parse(existingData);
-        product.push(...existingProducts);
+
+        // check if existing products
+        const existingProductIndex = products.findIndex(
+          (p) => p.id === product.id
+        );
+        if (existingProductIndex !== -1) {
+          products[existingProductIndex].quantity += product.quantity;
+        } else {
+          product.push(...existingProducts);
+        }
       } catch (error) {}
 
       // Save the updated products to file
