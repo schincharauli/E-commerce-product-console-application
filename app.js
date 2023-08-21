@@ -24,12 +24,14 @@ readLine.question("Enter Product Name: ", (name) => {
         const existingData = fs.readFileSync("products.json", "utf-8");
         const existingProducts = JSON.parse(existingData);
 
-        // check if existing products
+        // Check if a product with the same ID exists
         const existingProductIndex = products.findIndex(
           (p) => p.id === product.id
         );
+
         if (existingProductIndex !== -1) {
-          products[existingProductIndex].quantity += product.quantity;
+          products[existingProductIndex].name = product.name;
+          products[existingProductIndex].price = product.price;
         } else {
           product.push(...existingProducts);
         }
